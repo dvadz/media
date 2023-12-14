@@ -11,7 +11,7 @@ const UsersList = () => {
 
   const dispatch = useDispatch();
 
-  const { isLoading, data, error } = useSelector((state) => {
+  const { data } = useSelector((state) => {
     return state.users;
   });
 
