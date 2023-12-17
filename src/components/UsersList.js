@@ -7,7 +7,7 @@ import Skeleton from "./Skeleton";
 
 const UsersList = () => {
   const [isLoadingUsers, setIsLoadingUsers] = useState(false);
-  const [loadingUsersError, setLoadingusersError] = useState(null);
+  const [loadingUsersError, setLoadingUsersError] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -16,16 +16,24 @@ const UsersList = () => {
   });
 
   useEffect(() => {
-    dispatch(fetchUsers());
+    setIsLoadingUsers(true);
+    dispatch(fetchUsers())
+      .unwrap()
+      .catch((err) => {
+        setLoadingUsersError(err);
+      })
+      .finally(() => {
+        setIsLoadingUsers(false);
+      });
   }, [dispatch]); //[dispatch] does not serve a purpose except to get rid of the eslint warning
 
   const handleUserAdd = () => {
     dispatch(addUser());
   };
 
-  if (isLoading) return <Skeleton times={5} className="h-5 w-5/6" />;
+  if (isLoadingUsers) return <Skeleton times={5} className="h-5 w-5/6" />;
 
-  if (error) return <div>Error fetching data...</div>;
+  if (loadingUsersError) return <div>Error fetching data...</div>;
 
   const renderedUsers = data.map((user) => {
     return (
