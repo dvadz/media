@@ -8,6 +8,8 @@ import Skeleton from "./Skeleton";
 const UsersList = () => {
   const [isLoadingUsers, setIsLoadingUsers] = useState(false);
   const [loadingUsersError, setLoadingUsersError] = useState(null);
+  const [isCreatingUser, setIsCreatingUser] = useState(false);
+  const [creatingUserError, setCreatingUserError] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -28,7 +30,15 @@ const UsersList = () => {
   }, [dispatch]); //[dispatch] does not serve a purpose except to get rid of the eslint warning
 
   const handleUserAdd = () => {
-    dispatch(addUser());
+    isCreatingUser(true);
+    dispatch(addUser())
+      .unwrap()
+      .catch((err) => {
+        setCreatingUserError(err);
+      })
+      .finally(() => {
+        isCreatingUser(false);
+      });
   };
 
   if (isLoadingUsers) return <Skeleton times={5} className="h-5 w-5/6" />;
