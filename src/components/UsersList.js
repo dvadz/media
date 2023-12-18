@@ -30,14 +30,14 @@ const UsersList = () => {
   }, [dispatch]); //[dispatch] does not serve a purpose except to get rid of the eslint warning
 
   const handleUserAdd = () => {
-    isCreatingUser(true);
+    setIsCreatingUser(true);
     dispatch(addUser())
       .unwrap()
       .catch((err) => {
         setCreatingUserError(err);
       })
       .finally(() => {
-        isCreatingUser(false);
+        setIsCreatingUser(false);
       });
   };
 
@@ -59,7 +59,11 @@ const UsersList = () => {
     <div>
       <div className="flex flex-row justify-between m-3">
         <h1 className="m-2 text-xl">Users</h1>
-        <Button onClick={handleUserAdd}>+ Add User</Button>
+        {isCreatingUser ? (
+          "Creating User..."
+        ) : (
+          <Button onClick={handleUserAdd}>+ Add User</Button>
+        )}
       </div>
       {renderedUsers}
     </div>
