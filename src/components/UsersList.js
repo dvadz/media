@@ -31,8 +31,10 @@ const UsersList = () => {
   const [doFetchUsers, isLoadingUsers, loadingUsersError] =
     useThunk(fetchUsers);
 
-  const [isCreatingUser, setIsCreatingUser] = useState(false);
-  const [creatingUserError, setCreatingUserError] = useState(null);
+  const [doCreateUser, isCreatingUser, creatingUserError] = useThunk(addUser);
+
+  // const [isCreatingUser, setIsCreatingUser] = useState(false);
+  // const [creatingUserError, setCreatingUserError] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -45,15 +47,7 @@ const UsersList = () => {
   }, [doFetchUsers]);
 
   const handleUserAdd = () => {
-    setIsCreatingUser(true);
-    dispatch(addUser())
-      .unwrap()
-      .catch((err) => {
-        setCreatingUserError(err);
-      })
-      .finally(() => {
-        setIsCreatingUser(false);
-      });
+    doCreateUser();
   };
 
   if (isLoadingUsers) return <Skeleton times={5} className="h-5 w-5/6" />;
