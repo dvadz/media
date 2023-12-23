@@ -5,6 +5,29 @@ import { fetchUsers, addUser } from "../store";
 import Button from "./Button";
 import Skeleton from "./Skeleton";
 
+const useThunk = (thunk) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const dispatch = useDispatch();
+
+  const runThunk = useCallback(() => {
+    setIsLoading(true);
+    dispatch(thunk())
+      .unwrap()
+      .catch((err) => {
+        setError(err).finally(() => {
+          setIsLoading(false);
+        });
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, [dispatch, thunk]);
+
+  return [runThunk, isLoading, error];
+};
+
 const UsersList = () => {
   const [isLoadingUsers, setIsLoadingUsers] = useState(false);
   const [loadingUsersError, setLoadingUsersError] = useState(null);
