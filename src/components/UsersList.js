@@ -29,8 +29,9 @@ const useThunk = (thunk) => {
 };
 
 const UsersList = () => {
-  const [isLoadingUsers, setIsLoadingUsers] = useState(false);
-  const [loadingUsersError, setLoadingUsersError] = useState(null);
+  const [doFetchUsers, isLoadingUsers, loadingUsersError] =
+    useThunk(fetchUsers);
+
   const [isCreatingUser, setIsCreatingUser] = useState(false);
   const [creatingUserError, setCreatingUserError] = useState(null);
 
@@ -41,16 +42,8 @@ const UsersList = () => {
   });
 
   useEffect(() => {
-    setIsLoadingUsers(true);
-    dispatch(fetchUsers())
-      .unwrap()
-      .catch((err) => {
-        setLoadingUsersError(err);
-      })
-      .finally(() => {
-        setIsLoadingUsers(false);
-      });
-  }, [dispatch]); //[dispatch] does not serve a purpose except to get rid of the eslint warning
+    doFetchUsers();
+  }, [doFetchUsers]);
 
   const handleUserAdd = () => {
     setIsCreatingUser(true);
