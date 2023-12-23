@@ -10,19 +10,22 @@ const useThunk = (thunk) => {
 
   const dispatch = useDispatch();
 
-  const runThunk = useCallback(() => {
-    setIsLoading(true);
-    dispatch(thunk())
-      .unwrap()
-      .catch((err) => {
-        setError(err).finally(() => {
+  const runThunk = useCallback(
+    (arg) => {
+      setIsLoading(true);
+      dispatch(thunk(arg))
+        .unwrap()
+        .catch((err) => {
+          setError(err).finally(() => {
+            setIsLoading(false);
+          });
+        })
+        .finally(() => {
           setIsLoading(false);
         });
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, [dispatch, thunk]);
+    },
+    [dispatch, thunk]
+  );
 
   return [runThunk, isLoading, error];
 };
