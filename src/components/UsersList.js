@@ -33,11 +33,6 @@ const UsersList = () => {
 
   const [doCreateUser, isCreatingUser, creatingUserError] = useThunk(addUser);
 
-  // const [isCreatingUser, setIsCreatingUser] = useState(false);
-  // const [creatingUserError, setCreatingUserError] = useState(null);
-
-  const dispatch = useDispatch();
-
   const { data } = useSelector((state) => {
     return state.users;
   });
