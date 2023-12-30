@@ -13,9 +13,7 @@ const useThunk = (thunk) => {
       dispatch(thunk(arg))
         .unwrap()
         .catch((err) => {
-          setError(err).finally(() => {
-            setIsLoading(false);
-          });
+          setError(err);
         })
         .finally(() => {
           setIsLoading(false);
