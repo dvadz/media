@@ -26,18 +26,19 @@ const AlbumsList = ({ user }) => {
         </ExpandablePanel>
       );
     });
-    return (
-      <div>
-        <div className="m-2 flex justify-between items-center">
-          <h3 className="font-bold">Albums by {user.name}</h3>
-          <Button onClick={handleAddAlbum} loading={results.isLoading}>
-            Add Album
-          </Button>
-        </div>
-        <div>{content}</div>
-      </div>
-    );
   }
+
+  return (
+    <div>
+      <div className="m-2 flex justify-between items-center">
+        <h3 className="font-bold">Albums by {user.name}</h3>
+        <Button onClick={handleAddAlbum} loading={results.isLoading}>
+          Add Album
+        </Button>
+      </div>
+      <div>{content}</div>
+    </div>
+  );
 };
 
 export default AlbumsList;
