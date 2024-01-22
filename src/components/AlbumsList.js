@@ -28,8 +28,8 @@ const AlbumsList = ({ user }) => {
     });
     return (
       <div>
-        <div>
-          <div>Albums by {user.name}</div>
+        <div className="m-2 flex justify-between items-center">
+          <h3 className="font-bold">Albums by {user.name}</h3>
           <Button onClick={handleAddAlbum}>Add Album</Button>
         </div>
         <div>{content}</div>
