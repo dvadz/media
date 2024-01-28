@@ -11,7 +11,7 @@ const PhotosList = ({ album }) => {
     content = "ERROR";
   } else {
     content = data.map((photo) => {
-      return <PhotoListItem photo={photo} />;
+      return <PhotoListItem key={photo.id} photo={photo} />;
     });
   }
 
