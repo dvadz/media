@@ -1,4 +1,5 @@
 import { useFetchPhotosQuery } from "../store";
+import PhotoListItem from "./PhotosListItem";
 
 const PhotosList = ({ album }) => {
   const { data, error, isFetching } = useFetchPhotosQuery(album);
@@ -10,7 +11,7 @@ const PhotosList = ({ album }) => {
     content = "ERROR";
   } else {
     content = data.map((photo) => {
-      return <div> {photo.url}</div>;
+      return <PhotoListItem photo={photo} />;
     });
   }
 
