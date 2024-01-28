@@ -19,7 +19,7 @@ const AlbumsList = ({ user }) => {
     content = <div>{error}</div>;
   } else {
     content = data.map((album) => {
-      return <AlbumsListItem album={album} />;
+      return <AlbumsListItem key={album.id} album={album} />;
     });
   }
 
