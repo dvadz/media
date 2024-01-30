@@ -1,7 +1,7 @@
 const PhotosListItem = ({ photo }) => {
   return (
-    <div>
-      <img src={photo.url} />
+    <div className="m-2">
+      <img src={photo.url} alt="random pix" />
     </div>
   );
 };
