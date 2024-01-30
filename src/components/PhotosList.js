@@ -1,8 +1,14 @@
-import { useFetchPhotosQuery } from "../store";
+import { useAddPhotoMutation, useFetchPhotosQuery } from "../store";
 import PhotoListItem from "./PhotosListItem";
+import Button from "./Button";
 
 const PhotosList = ({ album }) => {
   const { data, error, isFetching } = useFetchPhotosQuery(album);
+  const [addPhoto] = useAddPhotoMutation();
+
+  const handleAddPhoto = () => {
+    addPhoto(album);
+  };
 
   let content;
   if (isFetching) {
@@ -15,7 +21,14 @@ const PhotosList = ({ album }) => {
     });
   }
 
-  return <div>{content}</div>;
+  return (
+    <div>
+      <div className="m-2">
+        <Button onClick={handleAddPhoto}> Add Photo</Button>
+      </div>
+      <div className="flex">{content}</div>
+    </div>
+  );
 };
 
 export default PhotosList;
