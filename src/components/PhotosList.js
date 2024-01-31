@@ -4,7 +4,7 @@ import Button from "./Button";
 
 const PhotosList = ({ album }) => {
   const { data, error, isFetching } = useFetchPhotosQuery(album);
-  const [addPhoto] = useAddPhotoMutation();
+  const [addPhoto, result] = useAddPhotoMutation();
 
   const handleAddPhoto = () => {
     addPhoto(album);
@@ -24,7 +24,9 @@ const PhotosList = ({ album }) => {
   return (
     <div>
       <div className="m-2">
-        <Button onClick={handleAddPhoto}> Add Photo</Button>
+        <Button loading={result.isLoading} onClick={handleAddPhoto}>
+          Add Photo
+        </Button>
       </div>
       <div className="flex flex-wrap">{content}</div>
     </div>
