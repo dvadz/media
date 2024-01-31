@@ -1,6 +1,7 @@
 import { useAddPhotoMutation, useFetchPhotosQuery } from "../store";
 import PhotoListItem from "./PhotosListItem";
 import Button from "./Button";
+import Skeleton from "./Skeleton";
 
 const PhotosList = ({ album }) => {
   const { data, error, isFetching } = useFetchPhotosQuery(album);
@@ -12,7 +13,7 @@ const PhotosList = ({ album }) => {
 
   let content;
   if (isFetching) {
-    content = "Fetching";
+    content = <Skeleton times={5} className="h-5 w-full" />;
   } else if (error) {
     content = "ERROR";
   } else {
