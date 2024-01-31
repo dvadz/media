@@ -26,7 +26,7 @@ const PhotosList = ({ album }) => {
       <div className="m-2">
         <Button onClick={handleAddPhoto}> Add Photo</Button>
       </div>
-      <div className="flex">{content}</div>
+      <div className="flex flex-wrap">{content}</div>
     </div>
   );
 };
