@@ -39,9 +39,24 @@ const photosApi = createApi({
           };
         },
       }),
+      removePhoto: builder.mutation({
+        invalidatesTags: (result, error, photo) => {
+          return [{ type: "Photo", id: photo.id }];
+        },
+        query: (photo) => {
+          return {
+            url: `/photos/${photo.id}`,
+            method: "DELETE",
+          };
+        },
+      }),
     };
   },
 });
 
-export const { useFetchPhotosQuery, useAddPhotoMutation } = photosApi;
+export const {
+  useFetchPhotosQuery,
+  useAddPhotoMutation,
+  useRemovePhotoMutation,
+} = photosApi;
 export { photosApi };
